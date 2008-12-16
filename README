@@ -1,0 +1,15 @@
+Dependencies:
+    Python (tested 2.6)
+    Boost
+    Boost.Python
+
+Dependencies for the example program:
+    Pygame
+    PyOpenGL
+
+Building:
+
+    # python setup.py build
+    # sudo python setup.py install
+
+    or some such thing ... one could also use Boost.Build, scons, something else
