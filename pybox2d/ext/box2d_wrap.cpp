@@ -11,6 +11,8 @@ void export_world();
 void export_body();
 void export_shapes();
 void export_joints();
+void export_callbacks();
+void export_contact();
 
 BOOST_PYTHON_MODULE(pybox2d_ext)
 {
@@ -21,5 +23,7 @@ BOOST_PYTHON_MODULE(pybox2d_ext)
 	export_shapes();
 	export_world();
 	export_joints();
+	export_callbacks();
+	export_contact();
 }
 

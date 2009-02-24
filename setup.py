@@ -30,6 +30,8 @@ pybox2d/ext/wrap_collision.cpp
 pybox2d/ext/wrap_joints.cpp
 pybox2d/ext/wrap_math.cpp
 pybox2d/ext/wrap_shapes.cpp
+pybox2d/ext/wrap_callbacks.cpp
+pybox2d/ext/wrap_contact.cpp
 pybox2d/ext/wrap_world.cpp\
 """.split("\n")
 
@@ -55,8 +57,8 @@ def setup_package():
             author_email = "blak3mill3r@gmail.com",
             platforms = ["Linux", "Unix"],
             ext_modules=[ Extension("pybox2d_ext", WRAPPER_FILES, \
-            library_dirs=["/usr/local/boost_1_37_0/libs/python/build", "/usr/local/lib"], \
-            include_dirs=["/usr/local/boost_1_37_0", "/home/blake/src/Box2D/Source"], \
+            library_dirs=["/usr/lib", "./Box2D/Gen/float"], \
+            include_dirs=["/usr/include/boost", "./Box2D/"], \
             libraries=["boost_python", "box2d"]) ],
             packages = ['pybox2d']
             )

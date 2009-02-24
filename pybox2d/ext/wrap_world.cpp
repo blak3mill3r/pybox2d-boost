@@ -32,12 +32,14 @@ void export_world() {
 
     // b2World.h
     class_<b2World>("world", init<b2AABB, b2Vec2, bool>())
-        .def("create_body", &b2World::CreateBody, return_value_policy< reference_existing_object >())
-        .def("destroy_joint", &b2World::DestroyBody)
-        .def("create_joint", &b2World::CreateJoint, return_value_policy< reference_existing_object >())
-        .def("destroy_joint", &b2World::DestroyJoint)
-        .def("step", &b2World::Step)
-        .def("first_body", &b2World::GetBodyList, return_value_policy< reference_existing_object >())
-        .def("query", &worldQueryWrap)
+        .def("create_body",                &b2World::CreateBody, return_value_policy< reference_existing_object >())
+        .def("destroy_body",               &b2World::DestroyBody)
+        .def("create_joint",               &b2World::CreateJoint, return_value_policy< reference_existing_object >())
+        .def("destroy_joint",              &b2World::DestroyJoint)
+        .def("step",                       &b2World::Step)
+        .def("first_body",                 &b2World::GetBodyList, return_value_policy< reference_existing_object >())
+        .def("set_contact_listener",       &b2World::SetContactListener)
+        .def("set_debug_draw",             &b2World::SetDebugDraw)
+        .def("query",                      &worldQueryWrap)
       ;
 }

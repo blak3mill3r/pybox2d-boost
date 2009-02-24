@@ -7,7 +7,7 @@
 void export_collision() {
   using namespace boost::python;
 	// b2Collision.h
-	class_<b2AABB>("aabb")
+	class_<b2AABB>("AABB")
 		.def_readwrite("lower_bound", &b2AABB::lowerBound)
 		.def_readwrite("upper_bound", &b2AABB::upperBound)
 		;
