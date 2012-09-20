@@ -58,7 +58,7 @@ def setup_package():
             platforms = ["Linux", "Unix"],
             ext_modules=[ Extension("pybox2d_ext", WRAPPER_FILES, \
             library_dirs=["/usr/lib", "./Box2D/Gen/float"], \
-            include_dirs=["/usr/include/boost", "./Box2D/"], \
+            include_dirs=["/usr/include/boost", "/usr/include/Box2D/"], \
             libraries=["boost_python", "box2d"]) ],
             packages = ['pybox2d']
             )

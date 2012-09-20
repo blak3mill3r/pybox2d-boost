@@ -4,7 +4,7 @@
 #include "Dynamics/b2World.h"
 #include "Dynamics/b2Body.h"
 #include "Dynamics/Joints/b2Joint.h"
-#include "Dynamics/Joints/b2LineJoint.h"
+//#include "Dynamics/Joints/b2LineJoint.h"
 #include "Dynamics/Joints/b2RevoluteJoint.h"
 #include "Dynamics/Joints/b2PulleyJoint.h"
 #include "Dynamics/Joints/b2DistanceJoint.h"
@@ -25,7 +25,7 @@ void export_joints() {
 	class_< b2Joint, boost::noncopyable >("Joint", no_init)
 		.add_property("body1",                make_function(&b2Joint::GetBody1, return_value_policy< reference_existing_object >()))
 		.add_property("body2",                make_function(&b2Joint::GetBody2, return_value_policy< reference_existing_object >()))
-		.add_property("collide_connected",    &b2Joint::GetCollideConnected)
+		//.add_property("collide_connected",    &b2Joint::GetCollideConnected)
 		.add_property("next",                 make_function(&b2Joint::GetNext, return_value_policy< reference_existing_object >()))
 	  ;
 
@@ -65,36 +65,36 @@ void export_joints() {
 	  ;
 
 	// Line Joint
-	class_< b2LineJointDef, bases< b2JointDef > >("LineJointDef")
-		.def_readwrite("anchor1",             &b2LineJointDef::localAnchor1)
-		.def_readwrite("anchor2",             &b2LineJointDef::localAnchor2)
-		.def_readwrite("limited",             &b2LineJointDef::enableLimit)
-		.def_readwrite("local_axis1",         &b2LineJointDef::localAxis1)
-		.def_readwrite("lower_translation",   &b2LineJointDef::lowerTranslation)
-		.def_readwrite("motorized",           &b2LineJointDef::enableMotor)
-		.def_readwrite("motor_force",         &b2LineJointDef::maxMotorForce)
-		.def_readwrite("motor_speed",         &b2LineJointDef::motorSpeed)
-		.def_readwrite("upper_translation",   &b2LineJointDef::upperTranslation)
-		.def(          "initialize",          &b2LineJointDef::Initialize)
-	  ;
+	//class_< b2LineJointDef, bases< b2JointDef > >("LineJointDef")
+	//	.def_readwrite("anchor1",             &b2LineJointDef::localAnchor1)
+	//	.def_readwrite("anchor2",             &b2LineJointDef::localAnchor2)
+	//	.def_readwrite("limited",             &b2LineJointDef::enableLimit)
+	//	.def_readwrite("local_axis1",         &b2LineJointDef::localAxis1)
+	//	.def_readwrite("lower_translation",   &b2LineJointDef::lowerTranslation)
+	//	.def_readwrite("motorized",           &b2LineJointDef::enableMotor)
+	//	.def_readwrite("motor_force",         &b2LineJointDef::maxMotorForce)
+	//	.def_readwrite("motor_speed",         &b2LineJointDef::motorSpeed)
+	//	.def_readwrite("upper_translation",   &b2LineJointDef::upperTranslation)
+	//	.def(          "initialize",          &b2LineJointDef::Initialize)
+	//  ;
 
-	class_< b2LineJoint, bases < b2Joint > >("LineJoint", init< b2LineJointDef * >() )
-		.add_property("anchor1",              &b2LineJoint::GetAnchor1)
-		.add_property("anchor1",              &b2LineJoint::GetAnchor1)
-		.add_property("reaction_force",       &b2LineJoint::GetReactionForce)
-		.add_property("reaction_torque",      &b2LineJoint::GetReactionTorque)
+	//class_< b2LineJoint, bases < b2Joint > >("LineJoint", init< b2LineJointDef * >() )
+	//	.add_property("anchor1",              &b2LineJoint::GetAnchor1)
+	//	.add_property("anchor1",              &b2LineJoint::GetAnchor1)
+	//	.add_property("reaction_force",       &b2LineJoint::GetReactionForce)
+	//	.add_property("reaction_torque",      &b2LineJoint::GetReactionTorque)
 
-		.add_property("current_speed",        &b2LineJoint::GetJointSpeed)
-		.add_property("current_translation",  &b2LineJoint::GetJointTranslation)
-		.add_property("limited",              &b2LineJoint::IsLimitEnabled, &b2PrismaticJoint::EnableLimit)
-		.add_property("lower_limit",          &b2LineJoint::GetLowerLimit)
-        	.add_property("motorized",            &b2LineJoint::IsMotorEnabled, &b2PrismaticJoint::EnableMotor)
-		.add_property("motor_speed",          &b2LineJoint::GetMotorSpeed, &b2PrismaticJoint::SetMotorSpeed)
-		.add_property("motor_force",          &b2LineJoint::GetMotorForce, &b2PrismaticJoint::SetMaxMotorForce)
-		.add_property("upper_limit",          &b2LineJoint::GetUpperLimit)
-		.def(         "set_limits",           &b2LineJoint::SetLimits)
+	//	.add_property("current_speed",        &b2LineJoint::GetJointSpeed)
+	//	.add_property("current_translation",  &b2LineJoint::GetJointTranslation)
+	//	.add_property("limited",              &b2LineJoint::IsLimitEnabled, &b2PrismaticJoint::EnableLimit)
+	//	.add_property("lower_limit",          &b2LineJoint::GetLowerLimit)
+  //      	.add_property("motorized",            &b2LineJoint::IsMotorEnabled, &b2PrismaticJoint::EnableMotor)
+	//	.add_property("motor_speed",          &b2LineJoint::GetMotorSpeed, &b2PrismaticJoint::SetMotorSpeed)
+	//	.add_property("motor_force",          &b2LineJoint::GetMotorForce, &b2PrismaticJoint::SetMaxMotorForce)
+	//	.add_property("upper_limit",          &b2LineJoint::GetUpperLimit)
+	//	.def(         "set_limits",           &b2LineJoint::SetLimits)
 
-	  ;
+	//  ;
 
 	// Mouse Joint
 	class_< b2MouseJointDef, bases< b2JointDef > >("MouseJointDef")
@@ -172,7 +172,7 @@ void export_joints() {
 
 	// Revolute Joint
 	class_< b2RevoluteJoint, bases< b2Joint > >("RevoluteJoint", init< b2RevoluteJointDef * >() )
-		.add_property("current_anlge",        &b2RevoluteJoint::GetJointAngle)
+		.add_property("current_angle",        &b2RevoluteJoint::GetJointAngle)
 		.add_property("current_speed",        &b2RevoluteJoint::GetJointSpeed)
 		.add_property("limited",              &b2RevoluteJoint::IsLimitEnabled, &b2RevoluteJoint::EnableLimit)
 		.add_property("lower_limit",          &b2PrismaticJoint::GetLowerLimit)

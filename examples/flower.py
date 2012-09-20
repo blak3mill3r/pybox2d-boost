@@ -9,8 +9,8 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from pybox2d import *
 
-SCREEN_W = 640.0
-SCREEN_H = 480.0
+SCREEN_W = 1280.0
+SCREEN_H = 960.0
 #SCREEN_W = 640.0
 #SCREEN_H = 480.0
 
@@ -27,176 +27,54 @@ w = world_init( -100, -100, 100, 100 )
 p, c = ( polygon_def(), circle_def() )
 
 # floor & ceiling
-p.set_as_box(60, 1)
+p.set_as_box(30, 0.5)
 
 floor = w.new_body( vec2(0, -30), p )
 w.new_body( vec2(0, 30), p )
 
 # walls
-p.set_as_box(1, 60)
+p.set_as_box(0.5, 30)
 
 w.new_body( vec2(-30, 0), p )
 w.new_body( vec2( 30, 0), p )
 
-## prismatic
-#p.set_as_box(5,0.5)
-#p.density = 2
-#
-#elevator = w.new_body(vec2(10,0), p)
-#elevator.set_mass_from_shapes()
-#
-#pjd = prismatic_joint_def()
-#pjd.initialize( floor, elevator, vec2(10, 0), vec2(0, 1) )
-#pjd.lower = 0
-#pjd.upper = 2
-#pjd.max_motor_force = 30000
-#pjd.motor_speed = 100
-#pjd.enable_motor = 1
-#pjd.enable_limit = 1
-#
-#elevator_joint = w.create_joint(pjd)
-#elevator_joint.set_motor_speed( 10 )
-#elevator_joint.set_max_motor_force( 30000 )
-#elevator_joint.set_limits(0, 2)
-#elevator_joint.enable_motor(1)
-#
 # spinning thingy
-c.radius = 1.25
+c.radius = 1
 c.density = 1
 c.restitution = 0.9
 
-p.set_as_box( 8, 0.5 )
+p.set_as_box( 0.1, 0.05 )
 p.density=10
 p.restitution=0.9
 
-spinbody = w.new_body(vec2(-10, 0), [c,p])
-spinbody.set_mass_from_shapes()
+# the length of a side of a hexagon with height=1
+UNIT_HEX_SIDE = 0.577350269189626
 
-spinjdef = RevoluteJointDef()
-spinjdef.initialize( floor, spinbody, vec2(-10, 0) )
-spinjdef.max_motor_torque = 300000
-spinjdef.enable_motor = 1
-spinjdef.motor_speed = 3
+# hex-grid coordinates of the centers of the circles
+FLOWER_OF_LIFE = [
+[0, 1], [0, 2], [0, 3],
+[1, 0], [1, 1], [1, 2], [1, 3],
+[2, 0], [2, 1], [2, 2], [2, 3], [2, 4],
+[3, 0], [3, 1], [3, 2], [3, 3],
+[4, 1], [4, 2], [4, 3]
+]
 
-spinj = w.create_joint(spinjdef)
-spinj.motor_enabled = False
-
-# pulleys
-#a = 2
-#b = 4
-#y = 16
-#l = 12
-#
-#sd = polygon_def()
-#sd.set_as_box(a,b)
-#sd.density = 5.0
-#
-#bd = body_def()
-#bd.position = vec2( -10, y )
-#b1 = w.create_body(bd)
-#b1.create_shape(sd)
-#b1.set_mass_from_shapes()
-#
-#bd.position = vec2( 10, y )
-#b2 = w.create_body(bd)
-#b2.create_shape(sd)
-#b2.set_mass_from_shapes()
-#
-#pjd = pulley_joint_def()
-#pjd.initialize( b1, b2, vec2( -10, y+b+l ), vec2( 10, y+b+l ), vec2(-10, y+b), vec2(10, y+b), 2)
-#pj = w.create_joint(pjd)
-
-# chain
-sd = polygon_def()
-sd.set_as_box(0.6, 0.125)
-sd.density = 1000
-sd.friction = 0.2
-
-jd = RevoluteJointDef()
-jd.collide_connected = 0
-y = 3
-prevbody = floor
-num_links = 15
-
-for i in range(0, num_links):
-  bd = body_def()
-  bd.position = vec2( 0.5 + i, y )
-  body = w.create_body(bd)
-  body.create_shape(sd)
-  body.set_mass_from_shapes()
-  anchor = vec2( i, y )
-  jd.initialize(prevbody, body, anchor)
-  w.create_joint(jd)
-  prevbody = body
-
-# ball
-dsd = circle_def()
-dsd.radius = 1
-dsd.density = 1000
-dsd.restitution = 0.1
-
-dbd = body_def()
-dbd.position = vec2( 0.5 + dsd.radius + num_links, y )
-
-db = w.create_body(dbd)
-
-db.create_shape(dsd)
-
-db.set_mass_from_shapes()
-
-jd.initialize(prevbody, db, vec2(num_links, y))
-w.create_joint(jd)
-
-#for i in range(0,3):
-#    sa = polygon_def()
-#    sb = polygon_def()
-#
-#    sa.set_vertices( [
-#                                            ( 0,  0),
-#                                            ( randint(2, 9),  2),
-#                                            (-2,  2)            ] )
-#    sb.set_vertices( [
-#                                            (-2,  0),
-#                                            ( 0,  2),
-#                                            (-4,  2)            ] )
-#    
-#    sa.density=9
-#    sa.restitution = 0.9
-#    
-#    sb.density=9
-#    sb.restitution = 0.9
-#    
-#    w.new_body(vec2(i * 10, 5), [sa, sb]).set_mass_from_shapes()
-
-#for i in range(0,3):
-#  dbd = body_def()
-#  dbd.position = vec2(i * 10, 5)
-#  
-#  db = w.create_body(dbd)
-#  
-#  dsd = polygon_def()
-#  dsd.set_as_box(randint(1,5), randint(1,5))
-#  dsd.density = randint(1,5)
-#  dsd.restitution = randint(1,3)*0.125
-#  
-#  db.create_shape(dsd)
-#  
-#  db.set_mass_from_shapes()
-
-for i in range(0,3):
-  dbd = body_def()
-  dbd.position = vec2(randint(-20, 20), randint(-20,20))
+for hexcoord in FLOWER_OF_LIFE:
+  x = hexcoord[0] * UNIT_HEX_SIDE * 1.5
+  y = hexcoord[1] + (hexcoord[0]%2)*0.5
+      
+  spinbody = w.new_body(vec2(x,y), [c,p])
+  #spinbody = w.new_body(vec2(x,y), c)
+  spinbody.set_mass_from_shapes()
   
-  db = w.create_body(dbd)
+  spinjdef = RevoluteJointDef()
+  spinjdef.initialize( floor, spinbody, vec2(x,y) )
+  spinjdef.max_motor_torque = 300000
+  spinjdef.enable_motor = 1
+  spinjdef.motor_speed = 9000
   
-  dsd = circle_def()
-  dsd.radius = randint(1,3)
-  dsd.density = randint(1,9)
-  dsd.restitution = randint(1,7)*0.125
-  
-  db.create_shape(dsd)
-  
-  db.set_mass_from_shapes()
+  spinj = w.create_joint(spinjdef)
+  spinj.motor_enabled = 1
 
 timestep = 1.0 / 90.0
 iterations = 10
@@ -219,7 +97,7 @@ def drawcircle(shape, xf):
   center.x = center.x + xf.position.x
   center.y = center.y + xf.position.y
   radius = shape.radius()
-  segments = 16
+  segments = 64
   increment = 2.0 * 3.14159 / segments
   theta = 0
   glBegin(GL_LINE_LOOP)
@@ -313,7 +191,7 @@ def main():
         glLoadIdentity()
         #ar = 1280.0/1024.0
         ar = SCREEN_W/SCREEN_H
-        gluOrtho2D(-30*ar, 30*ar, -30, 30)
+        gluOrtho2D(-2*ar, 6*ar, -2, 6)
 
         pygame.fastevent.init()
 
@@ -359,3 +237,4 @@ def main():
                 pygame.time.wait(10)
 
 if __name__ == '__main__': main()
+

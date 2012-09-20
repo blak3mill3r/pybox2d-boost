@@ -48,7 +48,7 @@ class MyContactListener(ContactListener):
         print 'Remove', args
 
 def world_init(l, b, r, t, gravity=vec2(0,-10)):
-    world_aabb = aabb()
+    world_aabb = AABB()
     world_aabb.lower_bound = vec2(l, b)
     world_aabb.upper_bound = vec2(r, t)
     return world(world_aabb, gravity, 1)
@@ -76,7 +76,7 @@ box2.set_mass_from_shapes()
 print box2.first_shape()
 
 for i in xrange(300):
-    w.step(1./60, 10, 8)
+    w.step(1./60, 10)
     print box1.position.x, box1.position.y
     print box2.position.x, box2.position.y
 

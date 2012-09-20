@@ -63,9 +63,9 @@ void export_body() {
 		.add_property("linear_velocity",      &b2Body::GetLinearVelocity, &b2Body::SetLinearVelocity)
 		.add_property("local_center",         make_function(&b2Body::GetLocalCenter, return_value_policy< copy_const_reference >()))
 		.add_property("mass",                 &b2Body::GetMass, &b2Body::SetMass)
-		.add_property("may_sleep",            &b2Body::CanSleep, &b2Body::AllowSleeping)
+		//.add_property("may_sleep",            &b2Body::CanSleep, &b2Body::AllowSleeping)
 		.add_property("position",             make_function(&b2Body::GetPosition, return_value_policy< copy_const_reference >())) // TODO write a function to set the position
-		.add_property("rotation_fixed",       &b2Body::IsRotationFixed)
+		//.add_property("rotation_fixed",       &b2Body::IsRotationFixed)
 		.add_property("sleeping",             &b2Body::IsSleeping, &sleep_switch)
 		.add_property("static",               &b2Body::IsStatic)
 		.add_property("user_data",            &get_user_data_wrapper, &set_user_data_wrapper)
@@ -76,7 +76,7 @@ void export_body() {
 		.def(         "apply_force",          &b2Body::ApplyForce)
 		.def(         "apply_impulse",        &b2Body::ApplyImpulse)
 		.def(         "apply_torque",         &b2Body::ApplyTorque)
-		.def(         "can_sleep",            &b2Body::CanSleep)
+		//.def(         "can_sleep",            &b2Body::CanSleep)
 		.def(         "create_shape",         &b2Body::CreateShape, return_value_policy< reference_existing_object >())
 		.def(         "destroy_shape",        &b2Body::DestroyShape)
 		.def(         "get_angle",            &b2Body::GetAngle)
@@ -99,7 +99,7 @@ void export_body() {
 		.def(         "is_bullet",            &b2Body::IsBullet)
 		.def(         "is_dynamic",           &b2Body::IsDynamic)
 		.def(         "is_frozen",            &b2Body::IsFrozen)
-		.def(         "is_rotation_fixed",    &b2Body::IsRotationFixed)
+		//.def(         "is_rotation_fixed",    &b2Body::IsRotationFixed)
 		.def(         "is_sleeping",          &b2Body::IsSleeping)
 		.def(         "is_static",            &b2Body::IsStatic)
 		.def(         "set_angular_velocity", &b2Body::SetAngularVelocity)
@@ -123,7 +123,7 @@ void export_body() {
 		.def_readwrite("bullet",              &b2BodyDef::isBullet)
 		.def_readwrite("linear_damping",      &b2BodyDef::linearDamping)
 		.def_readwrite("mass",                &b2BodyDef::massData)
-		.def_readwrite("may_sleep",           &b2BodyDef::allowSleep)
+		//.def_readwrite("may_sleep",           &b2BodyDef::allowSleep)
 		.def_readwrite("position",            &b2BodyDef::position)
 		;
 	
