@@ -16,15 +16,23 @@ void export_shapes() {
 
 	// b2Shape.h
 	class_<b2ShapeDef>("shape_def")
-		.def_readwrite("density", &b2ShapeDef::density)
-		.def_readwrite("friction", &b2ShapeDef::friction)
+		.def_readwrite("density",     &b2ShapeDef::density)
+		.def_readwrite("friction",    &b2ShapeDef::friction)
 		.def_readwrite("restitution", &b2ShapeDef::restitution)
-		.def_readwrite("is_sensor", &b2ShapeDef::isSensor)
+		.def_readwrite("is_sensor",   &b2ShapeDef::isSensor)
+		.def_readwrite("filter_data", &b2ShapeDef::filter)
+		;
+
+	class_<b2FilterData>("filter_data")
+		.def_readwrite("category_bits",  &b2FilterData::categoryBits)
+		.def_readwrite("mask_bits",      &b2FilterData::maskBits)
+		.def_readwrite("group_index",    &b2FilterData::groupIndex)
 		;
 
 	class_<b2Shape, boost::noncopyable>("shape", no_init)
 		.def("next", &b2Shape::GetNext, return_value_policy< reference_existing_object >())
 		.def("body", &b2Shape::GetBody, return_value_policy< reference_existing_object >())
+		.def("set_filter_data", &b2Shape::SetFilterData, return_value_policy< reference_existing_object >())
 	  ;
 
 	// b2CircleShape.h

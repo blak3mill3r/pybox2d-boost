@@ -42,15 +42,26 @@ w.new_body( vec2( 30, 0), p )
 c.radius = 1
 c.density = 1
 c.restitution = 0.9
+c.filter_data.group_index = -1
 
 p.set_as_box( 0.1, 0.05 )
 p.density=10
 p.restitution=0.9
+p.filter_data.group_index = -1
 
 # the length of a side of a hexagon with height=1
 UNIT_HEX_SIDE = 0.577350269189626
 
 # hex-grid coordinates of the centers of the circles
+#FLOWER_OF_LIFE = [
+#[0, 1],# [0, 2], [0, 3],
+#[2, 4],
+##[1, 0], [1, 1], [1, 2], [1, 3],
+##[2, 0], [2, 1], [2, 2], [2, 3], [2, 4],
+##[3, 0], [3, 1], [3, 2], [3, 3],
+##[4, 1], [4, 2], [4, 3]
+#]
+
 FLOWER_OF_LIFE = [
 [0, 1], [0, 2], [0, 3],
 [1, 0], [1, 1], [1, 2], [1, 3],
@@ -71,10 +82,10 @@ for hexcoord in FLOWER_OF_LIFE:
   spinjdef.initialize( floor, spinbody, vec2(x,y) )
   spinjdef.max_motor_torque = 300000
   spinjdef.enable_motor = 1
-  spinjdef.motor_speed = 9000
+  spinjdef.motor_speed = 10
   
   spinj = w.create_joint(spinjdef)
-  spinj.motor_enabled = 1
+  spinj.motorized = True
 
 timestep = 1.0 / 90.0
 iterations = 10
